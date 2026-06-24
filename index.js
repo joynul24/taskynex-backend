@@ -30,6 +30,7 @@ app.use(cors({
     credentials: true
 }));
 
+
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
