@@ -73,7 +73,7 @@ app.post("/auth/register", async (req, res) => {
         const { name, email, photoUrl } = req.body;
 
         let role = req.body.role || "worker";
-        let coins = role === "buyer" ? 50 : 10;
+        let coins = role === "buyer" ? 500 : 200;
 
         if (email === "joynula919@gmail.com") {
             role = "admin";
@@ -213,15 +213,7 @@ app.get("/tasks", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-// app.get("/tasks", async (req, res) => {
-//     try {
-//         const db = await getDB();
-//         const tasks = await db.collection("tasks").find().sort({ createdAt: -1 }).toArray();
-//         res.json(tasks);
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
+
 
 app.get("/tasks/buyer/:email", async (req, res) => {
     try {
