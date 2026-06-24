@@ -201,12 +201,27 @@ app.patch("/approve-role/:id", async (req, res) => {
 app.get("/tasks", async (req, res) => {
     try {
         const db = await getDB();
-        const tasks = await db.collection("tasks").find().sort({ createdAt: -1 }).toArray();
+        const query = { required_workers: { $gt: 0 } };
+
+        const tasks = await db.collection("tasks")
+            .find(query)
+            .sort({ createdAt: -1 })
+            .toArray();
+
         res.json(tasks);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
+// app.get("/tasks", async (req, res) => {
+//     try {
+//         const db = await getDB();
+//         const tasks = await db.collection("tasks").find().sort({ createdAt: -1 }).toArray();
+//         res.json(tasks);
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
 app.get("/tasks/buyer/:email", async (req, res) => {
     try {
